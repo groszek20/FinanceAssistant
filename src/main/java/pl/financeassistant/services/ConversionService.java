@@ -6,20 +6,18 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class RateConversionService {
+public class ConversionService {
 
 	private CurrencyRateProvider rateProvider;
-	
+
 	@Autowired
 	public void setRateProvider(CurrencyRateProvider rateProvider) {
 		this.rateProvider = rateProvider;
 	}
-	
-	public BigDecimal convertAmount (int amount, String currency) {
+
+	public BigDecimal convertAmount(int amount, String currency) {
 		BigDecimal rate = rateProvider.getRate(currency, new Date());
 		System.out.println("RateConversionService: Obliczam Kwotê");
-		BigDecimal result = new BigDecimal(amount);
-		System.out.println(result);
-		return result;
+		return rate;
 	}
 }

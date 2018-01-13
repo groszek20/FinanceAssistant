@@ -7,6 +7,7 @@ public class FileCurrencyRateProvider implements CurrencyRateProvider {
 
 	public BigDecimal getRate(String currency, Date rateDate) {
 		System.out.println("FileCurrencyRateProvider: wczytano z pliku");
+		System.out.println(currency);
 		return BigDecimal.valueOf(4.25);
 	}
 }
