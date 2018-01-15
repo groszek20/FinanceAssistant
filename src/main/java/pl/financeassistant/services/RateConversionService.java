@@ -9,17 +9,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class RateConversionService {
 
 	private CurrencyRateProvider rateProvider;
-	
+
 	@Autowired
 	public void setRateProvider(CurrencyRateProvider rateProvider) {
 		this.rateProvider = rateProvider;
 	}
 	
-	public BigDecimal convertAmount (int amount, String currency) {
+	@Autowired(required = false)
+	private RoundPrecisionProvider precisionProvider;
+
+	public BigDecimal convertAmount(BigDecimal amount, String currency) {
 		BigDecimal rate = rateProvider.getRate(currency, new Date());
 		System.out.println("RateConversionService: Obliczam Kwotê");
-		BigDecimal result = new BigDecimal(amount);
-		System.out.println(result);
+		int precision = 2;
+		if (precisionProvider != null) {
+			precision = precisionProvider.getRoundPrecision("PLN");
+		} else {
+			System.out.println("Brak providera precyzji");
+		}
+		BigDecimal result = amount.multiply(rate).setScale(2, RoundingMode.HALF_UP);
 		return result;
 	}
+
 }
