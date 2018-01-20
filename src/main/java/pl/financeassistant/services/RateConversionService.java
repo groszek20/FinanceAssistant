@@ -3,6 +3,8 @@ package pl.financeassistant.services;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,16 +18,19 @@ public class RateConversionService {
 	}
 	
 	@Autowired(required = false)
-	private RoundPrecisionProvider precisionProvider;
+	private Map <String, RoundPrecisionProvider> precisionProviders;
 
 	public BigDecimal convertAmount(BigDecimal amount, String currency) {
 		BigDecimal rate = rateProvider.getRate(currency, new Date());
 		System.out.println("RateConversionService: Obliczam Kwotê");
 		int precision = 2;
-		if (precisionProvider != null) {
-			precision = precisionProvider.getRoundPrecision("PLN");
-		} else {
-			System.out.println("Brak providera precyzji");
+		System.out.println("Iloœæ dostawców:"+ precisionProviders.size());
+		for (String providerName : precisionProviders.keySet()) {
+			RoundPrecisionProvider provider = precisionProviders.get(providerName);
+			System.out.println("Bean: " + providerName);
+			if (provider.isSupportedCurrency("PLN")) {
+				precision = provider.getRoundPrecision("PLN");
+			}
 		}
 		BigDecimal result = amount.multiply(rate).setScale(2, RoundingMode.HALF_UP);
 		return result;

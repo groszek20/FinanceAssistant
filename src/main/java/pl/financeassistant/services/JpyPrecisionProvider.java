@@ -1,13 +1,13 @@
 package pl.financeassistant.services;
 
-public class FixedPrecisionProvider implements RoundPrecisionProvider {
+public class JpyPrecisionProvider implements RoundPrecisionProvider {
 
 	public int getRoundPrecision(String currency) {
-		return 2;
+		return 0;
 	}
 
 	public boolean isSupportedCurrency(String currency) {
-		return "PLN".equals(currency);
+		return "JPY".equals(currency);
 	}
 
 }

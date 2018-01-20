@@ -7,6 +7,7 @@ import pl.financeassistant.services.FileCurrencyRateProvider;
 import pl.financeassistant.services.FileTaxRate;
 import pl.financeassistant.services.FixedPrecisionProvider;
 import pl.financeassistant.services.InterfaceTestowy;
+import pl.financeassistant.services.JpyPrecisionProvider;
 import pl.financeassistant.services.RateConversionService;
 import pl.financeassistant.services.RoundPrecisionProvider;
 import pl.financeassistant.services.TaxesService;
@@ -46,5 +47,10 @@ public class AppConfig {
 	@Bean
 	public RoundPrecisionProvider precisionProvider() {
 		return new FixedPrecisionProvider();
+	}
+	
+	@Bean
+	public RoundPrecisionProvider precisionJpyProvider() {
+		return new JpyPrecisionProvider();
 	}
 }
