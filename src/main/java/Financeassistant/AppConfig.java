@@ -2,7 +2,9 @@ package Financeassistant;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.FilterType;
 
 import pl.financeassistant.services.CurrencyRateProvider;
 import pl.financeassistant.services.FileCurrencyRateProvider;
@@ -15,7 +17,8 @@ import pl.financeassistant.services.RoundPrecisionProvider;
 import pl.financeassistant.services.TaxesService;
 
 @Configuration
-@ComponentScan(basePackages= {"pl.financeassistant.services"})
+@ComponentScan(basePackages= {"pl.financeassistant.services"}, 
+includeFilters = @Filter(type=FilterType.ASSIGNABLE_TYPE, classes=CurrencyRateProvider.class))
 public class AppConfig {
 	
 //	@Bean
