@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,7 +20,8 @@ public class RateConversionService {
 		this.rateProvider = rateProvider;
 	}
 	
-	@Autowired(required = false)
+	@Autowired(required=false)
+	@Qualifier("przezwiskoDupy")
 	private Map <String, RoundPrecisionProvider> precisionProviders;
 
 	public BigDecimal convertAmount(BigDecimal amount, String currency) {
