@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan.Filter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 
 import pl.financeassistant.services.CurrencyRateProvider;
 import pl.financeassistant.services.DatabaseCurrencyRateProvider;
@@ -19,12 +20,13 @@ import pl.financeassistant.services.RoundPrecisionProvider;
 public class AppConfig {
 	
 	@Bean
+	@Profile("dev")
 	public CurrencyRateProvider fileCurrenRateProvider() {
 		return new FileCurrencyRateProvider();
 	}
 	
 	@Bean
-	@Primary
+	@Profile("prod")
 	public CurrencyRateProvider databaseCurrenRateProvider() {
 		return new DatabaseCurrencyRateProvider();
 	}

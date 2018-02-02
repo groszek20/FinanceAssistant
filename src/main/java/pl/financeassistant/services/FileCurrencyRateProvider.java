@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.springframework.stereotype.Service;
 
+@Service
 public class FileCurrencyRateProvider implements CurrencyRateProvider {
 
 	public BigDecimal getRate(String currency, Date rateDate) {
